@@ -10,8 +10,8 @@
 		"lint": "next lint"
 	},
 	"dependencies": {
-  "@humeai/voice": "^0.4.4",
-  "@humeai/react": "^0.2.1",
+ "@humeai/voice": "latest",
+ "@humeai/react-ui": "latest",
   "@radix-ui/react-slot": "^1.2.3",
   "@radix-ui/react-toggle": "^1.1.9",
   "@types/react-virtualized": "^9.21.30",
