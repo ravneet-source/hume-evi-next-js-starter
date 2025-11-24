@@ -11,7 +11,6 @@
 	},
 	"dependencies": {
  "@humeai/voice": "latest",
- "@humeai/react-ui": "latest",
   "@radix-ui/react-slot": "^1.2.3",
   "@radix-ui/react-toggle": "^1.1.9",
   "@types/react-virtualized": "^9.21.30",
