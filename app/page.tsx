@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { HumeClient } from "@humeai/web";
+import { HumeClient } from "@humeai/voice"
 
 export default function Home() {
   const videoRef = useRef<HTMLVideoElement>(null);
