@@ -1,10 +1,8 @@
 "use client";
 
 import { Button } from "./ui/button";
-import { Moon, Sun } from "lucide-react";
 import Github from "./logos/GitHub";
 import pkg from "@/package.json";
-import { useTheme } from "next-themes";
 
 export const Nav = () => {
   const { theme, setTheme } = useTheme();
