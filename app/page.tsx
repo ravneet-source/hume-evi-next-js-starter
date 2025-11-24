@@ -5,8 +5,8 @@ import { HumeClient } from "@humeai/voice";
 
 export default function Home() {
   const videoRef = useRef<HTMLVideoElement>(null);
-  const [evi, setEvi] = useState<any>(null);
-  const [isActive, setIsActive] = useState(false);
+  const [client, setClient] = useState<any>(null);
+  const [active, setActive] = useState(false);
 
   useEffect(() => {
     if (!process.env.NEXT_PUBLIC_HUME_CONFIG_ID) {
@@ -19,68 +19,61 @@ export default function Home() {
       environment: "production",
     });
 
-    setEvi(hc);
+    setClient(hc);
   }, []);
 
   async function startInterview() {
-    if (!evi) return;
+    if (!client) return;
 
-    setIsActive(true);
+    setActive(true);
 
-    // request permissions
     await navigator.mediaDevices.getUserMedia({
       video: true,
       audio: true,
     });
 
-    // attach webcam stream
-    const stream = await navigator.mediaDevices.getUserMedia({
+    const camStream = await navigator.mediaDevices.getUserMedia({
       video: true,
       audio: false,
     });
 
     if (videoRef.current) {
-      videoRef.current.srcObject = stream;
+      videoRef.current.srcObject = camStream;
     }
 
-    // start Hume session
-    evi.startSession({
-      video: true,
+    client.startSession({
       audio: true,
+      video: true,
       enableTranscription: true,
       enableFacemesh: true,
-      enableFacialExpression: true,
-      enableVocalBursts: true,
       enableProsody: true,
+      enableVocalBursts: true,
+      enableFacialExpression: true,
     });
   }
 
   async function stopInterview() {
-    if (!evi) return;
-
-    setIsActive(false);
-
-    evi.stopSession();
+    if (!client) return;
+    client.stopSession();
+    setActive(false);
   }
 
   return (
     <main className="flex flex-col items-center justify-center min-h-screen p-10 bg-black text-white">
-
+      
       <h1 className="text-3xl font-bold mb-8">
         Career Maker — Video Interview
       </h1>
 
-      {/* LIVE webcam */}
-      <video 
+      <video
         ref={videoRef}
-        autoPlay 
+        autoPlay
         playsInline
         muted
         className="rounded-xl border-2 border-gray-600 shadow-lg w-[400px] h-[300px] object-cover mb-8"
       />
 
-      {/* CTA BUTTON */}
-      {!isActive ? (
+      {!active ? (
         <button
           onClick={startInterview}
           className="bg-green-500 px-8 py-4 rounded-lg text-xl font-semibold"
@@ -97,7 +90,7 @@ export default function Home() {
       )}
 
       <p className="mt-8 opacity-50 text-sm">
-        Your voice & expressions are being analyzed securely.
+        Video & voice being analyzed securely.
       </p>
 
     </main>
